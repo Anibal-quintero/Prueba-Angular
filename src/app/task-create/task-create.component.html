@@ -1,0 +1,16 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <h2>Crear Tarea</h2>
+
+  <label for="name">Nombre de la tarea:</label>
+  <input
+    id="name"
+    formControlName="name"
+    placeholder="Enter task name"
+    required
+  />
+
+  <label for="dueDate">Fecha limite:</label>
+  <input id="dueDate" type="date" formControlName="dueDate" required />
+
+  <button type="submit" [disabled]="taskForm.invalid">Crear tarea</button>
+</form>
