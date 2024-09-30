@@ -1,14 +1,11 @@
-export interface Skill {
-    name: string;
-}
-export interface Person {
+export interface Task {
+  id: 0,
+  name: string;
+  dueDate: Date;
+  isCompleted: boolean;
+  people: {
     fullName: string;
     age: number;
-    skills: Skill[];
-}
-export interface Task {
-    name: string;
-    dueDate: Date;
-    isCompleted: boolean;
-    people: Person[];
+    skills: { name: string }[];
+  }[];
 }
