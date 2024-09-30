@@ -9,7 +9,7 @@ import { Task } from './interface/interface';
 })
 export class AppComponent implements OnInit {
   title = 'prueba-angular';
-
+  hiddenForm = true
   tasks: Task[] = [];
 
   constructor(private taskService: TaskService) { }
@@ -17,5 +17,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();  // Obtener tareas del servicio
   }
-  
+
+  showForm() {
+    this.hiddenForm = !this.hiddenForm
+    console.log(this.hiddenForm)
+  }
+
+
+
 }

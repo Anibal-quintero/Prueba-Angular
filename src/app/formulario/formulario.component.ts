@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../Task.service';
 @Component({
@@ -7,6 +7,7 @@ import { TaskService } from '../Task.service';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent {
+  @Input() hiddenForm: boolean = true;
   taskForm: FormGroup;
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {

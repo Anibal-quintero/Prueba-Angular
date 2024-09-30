@@ -25,6 +25,42 @@ export class TaskService {
           skills: [{ name: 'Angular' }, { name: 'React' }]
         }
       ]
+    },
+    {
+      id: 1,
+      name: 'Tarea B',
+      dueDate: new Date('2024-09-30'),
+      isCompleted: false,
+      people: [
+        {
+          fullName: 'Juan Perez',
+          age: 30,
+          skills: [{ name: 'JavaScript' }, { name: 'Angular' }]
+        },
+        {
+          fullName: 'Ramires Martinez',
+          age: 20,
+          skills: [{ name: 'Angular' }, { name: 'React' }]
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Tarea B',
+      dueDate: new Date('2024-09-30'),
+      isCompleted: false,
+      people: [
+        {
+          fullName: 'Juan Perez',
+          age: 30,
+          skills: [{ name: 'JavaScript' }, { name: 'Angular' }]
+        },
+        {
+          fullName: 'Ramires Martinez',
+          age: 20,
+          skills: [{ name: 'Angular' }, { name: 'React' }]
+        }
+      ]
     }
   ];
 

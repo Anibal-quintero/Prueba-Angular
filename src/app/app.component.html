@@ -1,6 +1,23 @@
-<section>
-  <app-formulario></app-formulario>
-  <div *ngFor="let task of tasks">
-    <app-task-card [task]="task"></app-task-card>
+<div class="task-container">
+  <div class="task-search-container">
+    <button class="create-task-button" (click)="showForm()">Crear Tarea</button>
+    <div class="search-container">
+      <input
+        type="text"
+        id="taskSearch"
+        class="search-input"
+        placeholder="Ingrese el nombre de la tarea"
+      />
+    </div>
   </div>
-</section>
+
+  <div class="form-section">
+    <app-formulario [hiddenForm]="hiddenForm" class="task-form"></app-formulario>
+  </div>
+
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-card-wrapper">
+      <app-task-card [task]="task" class="task-card"></app-task-card>
+    </div>
+  </div>
+</div>

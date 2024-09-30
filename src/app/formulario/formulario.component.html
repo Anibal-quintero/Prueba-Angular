@@ -1,20 +1,39 @@
-<form [formGroup]="taskForm" (ngSubmit)="saveTask()">
-  <!-- Nombre de la tarea -->
-  <label for="taskName">Nombre de la tarea:</label>
-  <input id="taskName" formControlName="name" />
-  <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched">
-    Nombre es requerido y debe tener al menos 3 caracteres.
+<form
+  [hidden]="hiddenForm"
+  [formGroup]="taskForm"
+  (ngSubmit)="saveTask()"
+  class="task-form"
+>
+  <div class="form-group">
+    <label for="taskName" class="form-label">Nombre de la tarea:</label>
+    <input id="taskName" formControlName="name" class="form-input" />
+    <div
+      *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched"
+      class="error-message"
+    >
+      Nombre requerido (mínimo 3 caracteres).
+    </div>
   </div>
 
-  <!-- Fecha de entrega -->
-  <label for="dueDate">Fecha de entrega:</label>
-  <input id="dueDate" type="date" formControlName="dueDate" />
-  <div
-    *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched"
-  >
-    Fecha de entrega es requerida.
+  <div class="form-group">
+    <label for="dueDate" class="form-label">Fecha de entrega:</label>
+    <input
+      id="dueDate"
+      type="date"
+      formControlName="dueDate"
+      class="form-input"
+    />
+    <div
+      *ngIf="
+        taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched
+      "
+      class="error-message"
+    >
+      Fecha de entrega es requerida.
+    </div>
   </div>
 
-  <!-- Botón para guardar tarea -->
-  <button type="submit" [disabled]="taskForm.invalid">Guardar tarea</button>
+  <button type="submit" [disabled]="taskForm.invalid" class="submit-button">
+    Guardar tarea
+  </button>
 </form>

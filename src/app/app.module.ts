@@ -10,7 +10,7 @@ import { TaskCardComponent } from './task-card/task-card-component';
   declarations: [
     AppComponent,
     FormularioComponent,
-    TaskCardComponent
+    TaskCardComponent,
   ],
   imports: [
     BrowserModule,
