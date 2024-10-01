@@ -9,7 +9,6 @@ export class TaskService {
 
   private tasks: Task[] = [
     {
-      id: 0,
       name: 'Tarea A',
       dueDate: new Date('2024-09-30'),
       isCompleted: false,
@@ -27,7 +26,6 @@ export class TaskService {
       ]
     },
     {
-      id: 1,
       name: 'Tarea B',
       dueDate: new Date('2024-09-30'),
       isCompleted: false,
@@ -45,8 +43,7 @@ export class TaskService {
       ]
     },
     {
-      id: 2,
-      name: 'Tarea B',
+      name: 'Tarea C',
       dueDate: new Date('2024-09-30'),
       isCompleted: false,
       people: [
@@ -72,24 +69,14 @@ export class TaskService {
     this.tasks.push(task);
   }
 
-  deletePerson(taskId: number, personIndex: number): void {
-    const task = this.tasks.find(t => t.id === taskId);
-    if (task && personIndex >= 0 && personIndex < task.people.length) {
-      task.people.splice(personIndex, 1);
-    }
+  deletePerson(taskIndex: number, personIndex: number): void {
+    this.tasks[taskIndex].people.splice(personIndex, 1);
   }
 
-  deleteSkill(taskId: number, personIndex: number, skillIndex: number) {
-    const task = this.tasks.find(t => t.id === taskId);
-    if (task) {
-      const person = task.people[personIndex]; // Obtén la persona por el índice
-      if (person && person.skills) {
-        person.skills.splice(skillIndex, 1); // Elimina la habilidad en la posición skillIndex
-      }
-    }
+  deleteSkill(taskIndex: number, personIndex: number, skillIndex: number) {
+    this.tasks[taskIndex].people[personIndex].skills.splice(skillIndex, 1)
   }
 
-  // Marcar tarea como completada
   completeTask(taskName: string): void {
     const task = this.tasks.find(t => t.name === taskName);
     if (task) {
@@ -97,7 +84,6 @@ export class TaskService {
     }
   }
 
-  // Filtrar tareas por estado (completadas o pendientes)
   filterTasks(isCompleted: boolean): Task[] {
     return this.tasks.filter(task => task.isCompleted === isCompleted);
   }

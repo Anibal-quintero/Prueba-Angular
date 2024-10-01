@@ -10,6 +10,7 @@ import { TaskService } from '../Task.service';
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Input() index!: number;
   showPersonForm = false;
   selectedPersonIndex: number | null = null;
   skillForm: FormGroup;
@@ -26,7 +27,6 @@ export class TaskCardComponent {
     });
   }
 
-  // Agregar nueva persona
   addPerson(): void {
     if (this.personForm.valid) {
       const newPerson = {
@@ -39,26 +39,28 @@ export class TaskCardComponent {
     }
   }
 
-  // Mostrar el formulario para agregar habilidad a una persona específica
   showSkillForm(index: number): void {
-    this.selectedPersonIndex = index; // Guardar el índice de la persona seleccionada
+    this.selectedPersonIndex = index; 
   }
 
-  // Agregar habilidad a la persona seleccionada
+  taskComplete(taskName: string) {
+    this.taskService.completeTask(taskName)
+  }
+
   addSkill(): void {
     if (this.skillForm.valid && this.selectedPersonIndex !== null) {
-      const selectedPerson = this.task.people[this.selectedPersonIndex]; // Usar el índice de la persona seleccionada
-      selectedPerson.skills.push({ name: this.skillForm.value.name }); // Agregar habilidad
-      this.skillForm.reset(); // Limpiar el formulario
-      this.selectedPersonIndex = null; // Restablecer el índice después de agregar la habilidad
+      const selectedPerson = this.task.people[this.selectedPersonIndex];
+      selectedPerson.skills.push({ name: this.skillForm.value.name }); 
+      this.skillForm.reset(); 
+      this.selectedPersonIndex = null; 
     }
   }
 
-  deletePerson(taskId: number, personId: number) {
-    this.taskService.deletePerson(taskId, personId)
+  deletePerson(taskIndex: number, personId: number) {
+    this.taskService.deletePerson(taskIndex, personId)
   }
 
-  deleteSkill(taskId: number, personId: number, skillIndex: number) {
-    this.taskService.deleteSkill(taskId, personId, skillIndex)
+  deleteSkill(taskIndex: number, personId: number, skillIndex: number) {
+    this.taskService.deleteSkill(taskIndex, personId, skillIndex)
   }
 }

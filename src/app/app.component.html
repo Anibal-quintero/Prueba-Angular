@@ -2,22 +2,29 @@
   <div class="task-search-container">
     <button class="create-task-button" (click)="showForm()">Crear Tarea</button>
     <div class="search-container">
-      <input
-        type="text"
-        id="taskSearch"
-        class="search-input"
-        placeholder="Ingrese el nombre de la tarea"
-      />
+      <select (change)="taskFilter($event)">
+        <option value="all">Todas</option>
+        <option value="true">Completadas</option>
+        <option value="false">Pendientes</option>
+      </select>
     </div>
   </div>
 
   <div class="form-section">
-    <app-formulario [hiddenForm]="hiddenForm" class="task-form"></app-formulario>
+    <app-formulario
+      [hiddenForm]="hiddenForm"
+      (formClose)="onFormClose($event)"
+      class="task-form"
+    ></app-formulario>
   </div>
 
   <div class="task-list">
-    <div *ngFor="let task of tasks" class="task-card-wrapper">
-      <app-task-card [task]="task" class="task-card"></app-task-card>
+    <div *ngFor="let task of filteredTasks; let i = index" class="task-card-wrapper">
+      <app-task-card
+        [task]="task"
+        [index]="i"
+        class="task-card"
+      ></app-task-card>
     </div>
   </div>
 </div>

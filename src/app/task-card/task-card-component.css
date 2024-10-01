@@ -15,6 +15,17 @@ h4 {
   font-size: 1.5em;
   color: #333;
 }
+.task-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task-status p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(70, 70, 70);
+}
 .due-date,
 .task-status {
   color: #666;

@@ -1,11 +1,16 @@
 <div class="task-card">
   <h2 class="task-title">
-    <span>{{ task.id + 1 }}. </span>{{ task.name }} - {{ task.dueDate |
+    <span>{{ index + 1 }}. </span>{{ task.name }} - {{ task.dueDate |
     date:'yyyy-MM-dd' }}
   </h2>
-  <!-- <p class="task-status">
-    Estado: {{ task.isCompleted ? "Completada" : "Pendiente" }}
-  </p> -->
+  <div class="task-status">
+    <p class="task-status">
+      Tarea: {{ task.isCompleted ? "Completada" : "Pendiente" }}
+    </p>
+    <button (click)="taskComplete(task.name)" *ngIf="!task.isCompleted">
+      Completar
+    </button>
+  </div>
   <h3>
     Personas asociadas ({{task.people.length}})
     <button class="add-person-btn" (click)="showPersonForm = !showPersonForm">
@@ -28,7 +33,7 @@
     <li *ngFor="let person of task.people; let i = index" class="person-item">
       <h4>
         {{ person.fullName }} ({{ person.age }} años)
-        <button class="delete-person-btn" (click)="deletePerson(task.id, i)">
+        <button class="delete-person-btn" (click)="deletePerson(index, i)">
           Elim. persona
         </button>
       </h4>
@@ -39,10 +44,7 @@
           class="skill-item"
         >
           -{{ skill.name }}
-          <button
-            class="delete-skill-btn"
-            (click)="deleteSkill(task.id, i, id)"
-          >
+          <button class="delete-skill-btn" (click)="deleteSkill(index, i, id)">
             ‒
           </button>
         </li>

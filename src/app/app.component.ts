@@ -11,18 +11,33 @@ export class AppComponent implements OnInit {
   title = 'prueba-angular';
   hiddenForm = true
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.tasks = this.taskService.getTasks();  // Obtener tareas del servicio
+    this.tasks = this.taskService.getTasks();
+    this.filteredTasks = [...this.tasks];
   }
 
   showForm() {
     this.hiddenForm = !this.hiddenForm
-    console.log(this.hiddenForm)
   }
 
+  onFormClose(event: boolean) {
+    this.hiddenForm = event;
+  }
 
+  taskFilter(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+
+    if (selectedValue === 'all') {
+      this.filteredTasks = [...this.tasks];
+    } else {
+      const isCompleted = selectedValue === 'true';
+      this.filteredTasks = this.tasks.filter(task => task.isCompleted === isCompleted);
+    }
+  }
 
 }

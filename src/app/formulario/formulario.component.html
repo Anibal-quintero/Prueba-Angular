@@ -4,6 +4,7 @@
   (ngSubmit)="saveTask()"
   class="task-form"
 >
+  <button (click)="closeForm()">Cerrar</button>
   <div class="form-group">
     <label for="taskName" class="form-label">Nombre de la tarea:</label>
     <input id="taskName" formControlName="name" class="form-input" />
@@ -33,7 +34,12 @@
     </div>
   </div>
 
-  <button type="submit" [disabled]="taskForm.invalid" class="submit-button">
+  <button
+    type="submit"
+    [disabled]="taskForm.invalid"
+    (click)="closeForm()"
+    class="submit-button"
+  >
     Guardar tarea
   </button>
 </form>

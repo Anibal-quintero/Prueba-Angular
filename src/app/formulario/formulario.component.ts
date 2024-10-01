@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../Task.service';
 @Component({
@@ -8,21 +8,25 @@ import { TaskService } from '../Task.service';
 })
 export class FormularioComponent {
   @Input() hiddenForm: boolean = true;
+  @Output() formClose = new EventEmitter<boolean>();
   taskForm: FormGroup;
 
   constructor(private fb: FormBuilder, private taskService: TaskService) {
     this.taskForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],  // Nombre de la tarea
-      dueDate: ['', Validators.required],  // Fecha de entrega
-      people: this.fb.array([])  // Personas asociadas
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      dueDate: ['', Validators.required],
+      people: this.fb.array([])
     });
   }
 
-  // Guardar tarea
+  closeForm() {
+    this.formClose.emit(true);  
+  }
+
   saveTask(): void {
     if (this.taskForm.valid) {
-      this.taskService.addTask(this.taskForm.value);  // Añadir tarea al servicio
-      this.taskForm.reset();  // Limpiar el formulario
+      this.taskService.addTask(this.taskForm.value);
+      this.taskForm.reset();
     }
   }
 }
