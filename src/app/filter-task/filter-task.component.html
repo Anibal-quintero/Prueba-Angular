@@ -1,0 +1,10 @@
+<nav class="navbar">
+  <div class="container">
+    <button class="logo" (click)="sendStatusForm()">Crear Tarea</button>
+    <select #teams (change)="onSelected(teams.value)" class="filter-select">
+      <option value="all">Todas las tareas</option>
+      <option value="completed">Completadas</option>
+      <option value="incomplete">Incompletas</option>
+    </select>
+  </div>
+</nav>

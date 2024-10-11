@@ -1,0 +1,24 @@
+<div class="form-container">
+  <form [formGroup]="dataPerson" (ngSubmit)="onSubmitPerson()">
+    <label for="nombre">Nombre Completo:</label>
+    <input type="text" id="nombre" formControlName="fullName" />
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" formControlName="age" />
+
+    <div class="skill-container">
+      <div *ngFor="let skill of availableSkills">
+        <input
+          type="checkbox"
+          [value]="skill"
+          (change)="onSkillChange($event)"
+        />
+        {{ skill }}
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!dataPerson.valid">
+      Agregar Persona
+    </button>
+  </form>
+</div>

@@ -11,3 +11,25 @@ body {
 * {
   box-sizing: border-box;
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 3px; /* Bordes redondeados */
+  padding: 5px; /* Espaciado interno */; /* Tamaño de fuente pequeño */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 100ms ease-in-out; /* Suave transición del color de fondo */
+}
+button:hover {
+  background-color: #0056b3; /* Color más oscuro al pasar el ratón */
+}
+button:active {
+  background-color: #004085; /* Color aún más oscuro al hacer clic */
+}

@@ -1,90 +1,87 @@
 import { Injectable } from '@angular/core';
-import { Task } from './interface/interface';
+import { Subject } from 'rxjs';
+import { peop, Tasks } from 'src/interface/tasks';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class TaskService {
 
-  private tasks: Task[] = [
+  constructor() { }
+
+  private globalTaskInfo = new Subject<any>()
+  info$ = this.globalTaskInfo.asObservable()
+
+  tasks: Tasks[] = [
     {
-      name: 'Tarea A',
-      dueDate: new Date('2024-09-30'),
-      isCompleted: false,
+      id: 1,
+      taskName: "Tarea A",
+      deadline: new Date().toLocaleDateString(),
+      completed: false,
       people: [
         {
-          fullName: 'Juan Perez',
-          age: 30,
-          skills: [{ name: 'JavaScript' }, { name: 'Angular' }]
+          fullName: "Juan Perez",
+          age: 25,
+          skills: ["JavasCript", "Angular"]
         },
         {
-          fullName: 'Ramires Martinez',
-          age: 20,
-          skills: [{ name: 'Angular' }, { name: 'React' }]
+          fullName: "Maria Lopez",
+          age: 30,
+          skills: ["TypeScript", "CSS"]
         }
       ]
     },
     {
-      name: 'Tarea B',
-      dueDate: new Date('2024-09-30'),
-      isCompleted: false,
+      id: 2,
+      taskName: "Tarea B",
+      deadline: new Date().toLocaleDateString(),
+      completed: true,
       people: [
         {
-          fullName: 'Juan Perez',
-          age: 30,
-          skills: [{ name: 'JavaScript' }, { name: 'Angular' }]
-        },
-        {
-          fullName: 'Ramires Martinez',
-          age: 20,
-          skills: [{ name: 'Angular' }, { name: 'React' }]
-        }
-      ]
-    },
-    {
-      name: 'Tarea C',
-      dueDate: new Date('2024-09-30'),
-      isCompleted: false,
-      people: [
-        {
-          fullName: 'Juan Perez',
-          age: 30,
-          skills: [{ name: 'JavaScript' }, { name: 'Angular' }]
-        },
-        {
-          fullName: 'Ramires Martinez',
-          age: 20,
-          skills: [{ name: 'Angular' }, { name: 'React' }]
+          fullName: "Carlos Gomez",
+          age: 40,
+          skills: ["HTML", "SCSS"]
         }
       ]
     }
-  ];
+  ]
 
-  getTasks(): Task[] {
-    return this.tasks;
+  infoTask(task: any) {
+    this.globalTaskInfo.next(task)
   }
 
-  addTask(task: Task): void {
-    this.tasks.push(task);
-  }
-
-  deletePerson(taskIndex: number, personIndex: number): void {
-    this.tasks[taskIndex].people.splice(personIndex, 1);
-  }
-
-  deleteSkill(taskIndex: number, personIndex: number, skillIndex: number) {
-    this.tasks[taskIndex].people[personIndex].skills.splice(skillIndex, 1)
-  }
-
-  completeTask(taskName: string): void {
-    const task = this.tasks.find(t => t.name === taskName);
+  addTask(task: Tasks) {
     if (task) {
-      task.isCompleted = true;
+      this.tasks.push(task)
     }
   }
 
-  filterTasks(isCompleted: boolean): Task[] {
-    return this.tasks.filter(task => task.isCompleted === isCompleted);
+  completeTask(taskID: number) {
+    const task = this.tasks.find((task) => task.id === taskID)
+    if (task) {
+      task.completed = true
+    }
   }
+
+  addPerson(taskID: number, newPerson: peop) {
+    const task = this.tasks.find(task => task.id === taskID)
+    if (task) {
+      task.people.push(newPerson)
+    }
+  }
+
+  deletePerson(taskId: number, PersonId: number) {
+    const task = this.tasks.find(task => task.id === taskId);
+    if (task) {
+      task.people.splice(PersonId, 1);
+    }
+  }
+
+  deleteSkill(taskId: number, PersonId: number, skillIndex: number) {
+    const task = this.tasks.find(task => task.id === taskId);
+    if (task && task.people[PersonId]) {
+      task.people[PersonId].skills.splice(skillIndex, 1);
+    }
+  }
+
 }

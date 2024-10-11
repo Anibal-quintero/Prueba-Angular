@@ -1,0 +1,51 @@
+<div *ngFor="let task of tasks" class="task-card">
+  <div class="task-header">
+    <h3 class="task-title">{{ task.id }}. {{ task.taskName }}</h3>
+    <span class="task-deadline">{{ task.deadline }}</span>
+  </div>
+  <div class="task-status">
+    <span>
+      <h4>Tarea:</h4>
+      {{ task.completed ? "Completada" : "Pendiente" }}</span
+    >
+    <button (click)="completeTask(task.id)" [hidden]="task.completed">
+      Marcar como completada
+    </button>
+  </div>
+  <div class="task-people">
+    <div class="task-title-people">
+      <h4>Personas asociadas: ({{ task.people.length }})</h4>
+      <button (click)="openPersonForm(task.id)">Agregar</button>
+    </div>
+    <ul>
+      <li *ngFor="let people of task.people; let i = index" class="person-item">
+        <div class="person-header">
+          <p class="person-name">
+            {{ people.fullName }} ({{ people.age }} Años)
+          </p>
+          <div>
+            <button (click)="deletePerson(task.id, i)">Elimiar</button>
+          </div>
+        </div>
+        <ul class="skills-list">
+          <h4>Habilidades:</h4>
+          <li *ngFor="let skill of people.skills; let skillId = index">
+            {{ skill }}
+            <button
+              (click)="deleteSkill(task.id, i, skillId)"
+              class="skill-button"
+            >
+              --</button
+            >,
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="visibilitiForm" class="form-person">
+  <app-cretae-person
+    [taskId]="taskId"
+    (statusForm)="closeForm($event)"
+  ></app-cretae-person>
+</div>
